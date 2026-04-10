@@ -5,5 +5,7 @@ import vercel from '@astrojs/vercel/serverless';
 export default defineConfig({
   integrations: [tailwind({ applyBaseStyles: false })],
   output: 'server',
-  adapter: vercel(),
+  adapter: vercel({
+    nodeVersion: '20.x',
+  }),
 });
