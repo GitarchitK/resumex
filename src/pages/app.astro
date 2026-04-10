@@ -669,15 +669,22 @@ import FormData from '../components/FormData.astro';
             <div class="flex items-center gap-1.5 bg-gray-50 border border-gray-100 rounded-lg px-3 py-2 text-xs font-medium text-gray-600"><span>💜</span> PhonePe</div>
             <div class="flex items-center gap-1.5 bg-gray-50 border border-gray-100 rounded-lg px-3 py-2 text-xs font-medium text-gray-600"><span>💙</span> Paytm</div>
           </div>
-          <button class="btn-primary w-full py-4 text-base">Pay ₹9 & Download PDF</button>
+          <!-- Pay button -->
+          <button id="btn-pay" class="btn-primary w-full py-4 text-base flex items-center justify-center gap-2">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
+            Pay ₹9 & Download PDF
+          </button>
+          <div id="pay-error" class="hidden mt-3 text-xs text-red-500 bg-red-50 rounded-lg p-2"></div>
           <p class="text-xs text-gray-400 mt-3">Secure payment · Instant download · No account needed</p>
         </div>
       </div>
     </div>
 
+    <!-- Razorpay SDK -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js" is:inline></script>
+
   </main>
 </Layout>
-
 <script>
   // ── Populate datalists from FormData ──
   function populateDatalist(id: string, items: string[]) {
@@ -1433,4 +1440,128 @@ import FormData from '../components/FormData.astro';
   document.getElementById('btn-download')?.addEventListener('click', () => {
     document.getElementById('paywall-modal')?.classList.remove('hidden');
   });
+
+  // ── Payment + PDF download ──
+  document.getElementById('btn-pay')?.addEventListener('click', async () => {
+    const btn = document.getElementById('btn-pay') as HTMLButtonElement;
+    const errEl = document.getElementById('pay-error')!;
+    errEl.classList.add('hidden');
+    btn.disabled = true;
+    btn.textContent = 'Creating order...';
+
+    try {
+      // 1. Create Razorpay order server-side
+      const orderRes = await fetch('/api/create-order', { method: 'POST' });
+      const order = await orderRes.json();
+
+      if (!order.success) throw new Error(order.error || 'Order creation failed');
+
+      // 2. Open Razorpay checkout
+      const options = {
+        key: order.keyId,
+        amount: order.amount,
+        currency: order.currency,
+        name: 'ResumeRocket AI',
+        description: 'ATS-Optimized Resume PDF',
+        order_id: order.orderId,
+        prefill: {
+          name: (document.getElementById('n-name') as HTMLInputElement)?.value || '',
+          email: (document.getElementById('n-email') as HTMLInputElement)?.value || '',
+          contact: (document.getElementById('n-phone') as HTMLInputElement)?.value || '',
+        },
+        theme: { color: '#2563eb' },
+        modal: {
+          ondismiss: () => {
+            btn.disabled = false;
+            btn.innerHTML = `<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg> Pay ₹9 & Download PDF`;
+          }
+        },
+        handler: async (response: any) => {
+          // Payment successful — generate and download PDF
+          btn.textContent = 'Generating PDF...';
+          await downloadResumePDF();
+          document.getElementById('paywall-modal')?.classList.add('hidden');
+          btn.disabled = false;
+          btn.innerHTML = `<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg> Pay ₹9 & Download PDF`;
+        },
+      };
+
+      const rzp = new (window as any).Razorpay(options);
+      rzp.on('payment.failed', (resp: any) => {
+        errEl.textContent = `Payment failed: ${resp.error.description}`;
+        errEl.classList.remove('hidden');
+        btn.disabled = false;
+        btn.innerHTML = `<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg> Pay ₹9 & Download PDF`;
+      });
+      rzp.open();
+
+    } catch (err: any) {
+      // If Razorpay keys not configured, fall back to direct print-to-PDF
+      console.warn('Razorpay not configured, falling back to print:', err.message);
+      await downloadResumePDF();
+      document.getElementById('paywall-modal')?.classList.add('hidden');
+      btn.disabled = false;
+      btn.innerHTML = `<svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg> Pay ₹9 & Download PDF`;
+    }
+  });
+
+  // ── Generate clean PDF via browser print ──
+  async function downloadResumePDF() {
+    const resumeContent = document.getElementById('resume-output')?.innerHTML || '';
+    if (!resumeContent) return;
+
+    // Open a clean print window with just the resume — no watermark, no blur
+    const printWin = window.open('', '_blank', 'width=900,height=1200');
+    if (!printWin) { alert('Please allow popups to download your resume.'); return; }
+
+    printWin.document.write(`<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Resume — ResumeRocket AI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', Arial, sans-serif;
+      font-size: 11.5px;
+      line-height: 1.5;
+      color: #111827;
+      background: white;
+      padding: 2cm 2.2cm;
+    }
+    h1 { font-size: 22px; font-weight: 800; }
+    .rr-section-title {
+      font-size: 9px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #374151;
+      border-bottom: 1px solid #d1d5db;
+      padding-bottom: 2px;
+      margin-bottom: 6px;
+      margin-top: 14px;
+    }
+    /* Hide watermark and blur overlay */
+    .wm-layer, .blur-overlay, #blur-overlay-dynamic { display: none !important; }
+    a { color: #1d4ed8; text-decoration: none; }
+    strong { font-weight: 600; }
+    @page { margin: 0; size: A4; }
+    @media print {
+      body { padding: 1.5cm 1.8cm; }
+    }
+  </style>
+</head>
+<body>${resumeContent}</body>
+</html>`);
+
+    printWin.document.close();
+    printWin.focus();
+
+    // Wait for fonts to load then print
+    setTimeout(() => {
+      printWin.print();
+      setTimeout(() => printWin.close(), 1000);
+    }, 800);
+  }
 </script>
