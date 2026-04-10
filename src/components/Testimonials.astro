@@ -1,0 +1,59 @@
+---
+const testimonials = [
+  {
+    name: "Priya Sharma",
+    role: "B.Tech CSE, Delhi University",
+    avatar: "PS",
+    color: "from-purple-400 to-pink-400",
+    text: "I was getting zero callbacks for 2 months. After using ResumeRocket, I got 4 interview calls in 3 days. The ATS score jumped from 41 to 79!",
+    score: "+38 ATS",
+  },
+  {
+    name: "Rahul Verma",
+    role: "MBA Fresher, Pune",
+    avatar: "RV",
+    color: "from-brand-400 to-accent-400",
+    text: "Honestly didn't expect much for ₹9 but this is insane value. The AI rewrote my bullet points to sound so much more professional. Got placed at a startup within a week.",
+    score: "Placed in 7 days",
+  },
+  {
+    name: "Ananya Krishnan",
+    role: "Software Engineer, Bangalore",
+    avatar: "AK",
+    color: "from-orange-400 to-yellow-400",
+    text: "The job-specific tailoring feature is 🔥. I pasted the JD and it matched my resume keywords perfectly. Cleared the ATS filter at TCS and Infosys both.",
+    score: "2 offers in hand",
+  },
+];
+---
+<section class="py-20 px-4 sm:px-6 bg-gray-50">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-12">
+      <p class="text-sm font-semibold text-brand-600 uppercase tracking-widest mb-2">Real Results</p>
+      <h2 class="text-3xl sm:text-4xl font-bold text-gray-900">Students who got hired</h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {testimonials.map((t) => (
+        <div class="card hover:shadow-md transition-shadow duration-200 flex flex-col gap-4">
+          <div class="flex items-center gap-3">
+            <div class={`w-10 h-10 rounded-full bg-gradient-to-br ${t.color} flex items-center justify-center text-white font-bold text-sm flex-shrink-0`}>
+              {t.avatar}
+            </div>
+            <div>
+              <div class="font-semibold text-gray-900 text-sm">{t.name}</div>
+              <div class="text-xs text-gray-400">{t.role}</div>
+            </div>
+            <span class="ml-auto text-xs font-semibold text-accent-600 bg-accent-500/10 px-2 py-1 rounded-full whitespace-nowrap">{t.score}</span>
+          </div>
+          <div class="flex gap-0.5">
+            {[1,2,3,4,5].map(() => (
+              <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+            ))}
+          </div>
+          <p class="text-gray-600 text-sm leading-relaxed">"{t.text}"</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

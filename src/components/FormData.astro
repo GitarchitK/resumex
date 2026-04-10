@@ -1,0 +1,183 @@
+---
+// All shared data for form dropdowns — exported as JS constants via script
+---
+<script>
+// ── 500+ Indian Cities ──
+window.INDIA_CITIES = [
+  "Agartala","Agra","Ahmedabad","Ahmednagar","Aizawl","Ajmer","Akola","Aligarh","Alwar","Ambala",
+  "Amravati","Amritsar","Anand","Anantapur","Aurangabad","Ayodhya","Azamgarh",
+  "Bagalkot","Ballari","Bangalore","Bareilly","Bathinda","Belagavi","Bhagalpur","Bharatpur",
+  "Bhatinda","Bhavnagar","Bhilai","Bhilwara","Bhopal","Bhubaneswar","Bidar","Bikaner","Bilaspur",
+  "Chandigarh","Chennai","Chittoor","Coimbatore","Cuttack",
+  "Davanagere","Dehradun","Delhi","Dhanbad","Dharwad","Dibrugarh","Durgapur",
+  "Erode","Faridabad","Firozabad","Gandhinagar","Gaya","Ghaziabad","Gorakhpur","Gulbarga",
+  "Guntur","Gurgaon","Guwahati","Gwalior",
+  "Hassan","Hisar","Hubli","Hyderabad",
+  "Imphal","Indore","Itanagar",
+  "Jabalpur","Jaipur","Jalandhar","Jalgaon","Jammu","Jamnagar","Jamshedpur","Jhansi","Jodhpur",
+  "Kakinada","Kalyan","Kannur","Kanpur","Karimnagar","Karnal","Kochi","Kohima","Kolhapur",
+  "Kolkata","Kollam","Kota","Kozhikode","Kurnool",
+  "Latur","Lucknow","Ludhiana",
+  "Madurai","Mangalore","Mathura","Meerut","Moradabad","Mumbai","Mysore",
+  "Nagpur","Nashik","Navi Mumbai","Nellore","Noida",
+  "Panaji","Patiala","Patna","Pondicherry","Pune",
+  "Raipur","Rajkot","Ranchi","Rohtak",
+  "Salem","Sangli","Shillong","Shimla","Siliguri","Solapur","Srinagar","Surat",
+  "Thane","Thiruvananthapuram","Thrissur","Tiruchirappalli","Tirunelveli","Tirupati","Tiruppur",
+  "Udaipur","Ujjain","Vadodara","Varanasi","Vijayawada","Visakhapatnam","Warangal",
+  "Remote / Work from Home","Open to Relocation"
+];
+
+// ── All Job Roles (all fields) ──
+window.ALL_ROLES = {
+  "Technology & IT": [
+    "Software Engineer (SDE-1)","Software Engineer (SDE-2)","Senior Software Engineer",
+    "Full Stack Developer","Frontend Developer","Backend Developer","DevOps Engineer",
+    "Site Reliability Engineer (SRE)","Cloud Engineer","Data Engineer","ML Engineer",
+    "AI Engineer","Android Developer","iOS Developer","Mobile Developer","Embedded Systems Engineer",
+    "Network Engineer","System Administrator","Database Administrator","IT Support Engineer",
+    "Cybersecurity Analyst","Penetration Tester","Blockchain Developer","Game Developer",
+    "AR/VR Developer","Technical Lead","Engineering Manager","VP of Engineering","CTO"
+  ],
+  "Data & Analytics": [
+    "Data Analyst","Senior Data Analyst","Data Scientist","Senior Data Scientist",
+    "Business Analyst","Business Intelligence Analyst","Data Architect","Analytics Engineer",
+    "Quantitative Analyst","Research Analyst","Market Research Analyst","Operations Analyst",
+    "Financial Analyst","Risk Analyst","Credit Analyst","Actuarial Analyst"
+  ],
+  "Product & Design": [
+    "Product Manager","Senior Product Manager","Associate Product Manager","Product Owner",
+    "UI Designer","UX Designer","UI/UX Designer","Product Designer","Graphic Designer",
+    "Visual Designer","Motion Designer","Brand Designer","Web Designer","Interaction Designer",
+    "Design Lead","Head of Design"
+  ],
+  "Marketing & Sales": [
+    "Digital Marketing Executive","SEO Analyst","SEO Specialist","SEM / PPC Specialist",
+    "Social Media Manager","Content Writer","Content Strategist","Copywriter","Email Marketer",
+    "Growth Hacker","Performance Marketer","Brand Manager","Marketing Manager",
+    "Sales Executive","Business Development Executive","Business Development Manager",
+    "Account Manager","Key Account Manager","Inside Sales Representative",
+    "Pre-Sales Consultant","Channel Sales Manager","Zonal Sales Manager","VP Sales"
+  ],
+  "Finance & Accounting": [
+    "Accountant","Senior Accountant","Chartered Accountant (CA)","Cost Accountant (CMA)",
+    "Company Secretary (CS)","Finance Executive","Finance Manager","CFO",
+    "Audit Executive","Internal Auditor","Tax Consultant","GST Consultant",
+    "Investment Banker","Equity Research Analyst","Portfolio Manager","Wealth Manager",
+    "Credit Manager","Loan Officer","Insurance Advisor","Actuary"
+  ],
+  "Human Resources": [
+    "HR Executive","HR Generalist","HR Manager","HR Business Partner","CHRO",
+    "Talent Acquisition Specialist","Recruiter","Technical Recruiter","Sourcing Specialist",
+    "Learning & Development Manager","Payroll Executive","Compensation & Benefits Manager",
+    "Employee Relations Manager","HR Operations Manager"
+  ],
+  "Operations & Supply Chain": [
+    "Operations Executive","Operations Manager","Operations Analyst","Business Operations Manager",
+    "Supply Chain Executive","Supply Chain Manager","Logistics Executive","Logistics Manager",
+    "Warehouse Manager","Procurement Executive","Procurement Manager","Inventory Manager",
+    "Quality Analyst","Quality Manager","Production Manager","Plant Manager",
+    "Project Manager","Program Manager","Scrum Master","Agile Coach"
+  ],
+  "Healthcare & Pharma": [
+    "MBBS Doctor","General Physician","Specialist Doctor","Surgeon","Dentist","Physiotherapist",
+    "Nurse","Staff Nurse","Nursing Manager","Pharmacist","Medical Representative",
+    "Clinical Research Associate","Regulatory Affairs Executive","Healthcare Administrator",
+    "Hospital Manager","Lab Technician","Radiologist","Pathologist"
+  ],
+  "Education & Training": [
+    "Teacher","School Teacher","College Lecturer","Professor","Assistant Professor",
+    "Associate Professor","Academic Coordinator","Curriculum Developer","Instructional Designer",
+    "Corporate Trainer","Soft Skills Trainer","Technical Trainer","Education Counselor",
+    "Admission Counselor","Tutor","Coaching Faculty"
+  ],
+  "Legal & Compliance": [
+    "Advocate / Lawyer","Corporate Lawyer","Litigation Lawyer","Legal Executive",
+    "Legal Manager","Compliance Officer","Compliance Manager","Legal Counsel",
+    "Contract Manager","Paralegal","Intellectual Property Analyst"
+  ],
+  "Engineering (Non-IT)": [
+    "Mechanical Engineer","Civil Engineer","Electrical Engineer","Electronics Engineer",
+    "Chemical Engineer","Aerospace Engineer","Automobile Engineer","Structural Engineer",
+    "Environmental Engineer","Industrial Engineer","Manufacturing Engineer",
+    "Maintenance Engineer","Process Engineer","Quality Engineer","R&D Engineer",
+    "Design Engineer","CAD Engineer","VLSI Engineer","Instrumentation Engineer"
+  ],
+  "Architecture & Construction": [
+    "Architect","Junior Architect","Senior Architect","Interior Designer","Urban Planner",
+    "Site Engineer","Construction Manager","Project Engineer","Quantity Surveyor",
+    "Building Inspector","Landscape Architect"
+  ],
+  "Media & Communication": [
+    "Journalist","Reporter","News Anchor","Video Editor","Videographer","Photographer",
+    "Content Creator","Podcast Producer","Public Relations Executive","PR Manager",
+    "Communications Manager","Technical Writer","Documentation Specialist"
+  ],
+  "Hospitality & Tourism": [
+    "Hotel Manager","Front Office Executive","Guest Relations Executive","F&B Manager",
+    "Chef","Sous Chef","Housekeeping Manager","Travel Consultant","Tour Guide",
+    "Event Manager","Event Coordinator","Wedding Planner","Catering Manager"
+  ],
+  "Retail & E-commerce": [
+    "Store Manager","Retail Executive","Visual Merchandiser","Category Manager",
+    "E-commerce Executive","E-commerce Manager","Marketplace Manager","Catalog Executive",
+    "Customer Service Executive","Customer Success Manager"
+  ],
+  "Banking & Insurance": [
+    "Bank PO","Bank Clerk","Branch Manager","Relationship Manager","Loan Officer",
+    "Credit Analyst","Treasury Analyst","Insurance Agent","Insurance Manager",
+    "Underwriter","Claims Executive","BFSI Sales Executive"
+  ],
+  "Government & PSU": [
+    "IAS Officer","IPS Officer","IFS Officer","Civil Services","SSC CGL","SSC CHSL",
+    "Bank PO (IBPS)","RBI Grade B","UPSC Aspirant","State PSC","Defence Officer",
+    "PSU Engineer","Railway Engineer","DRDO Scientist","ISRO Scientist"
+  ],
+  "Fresher / Student": [
+    "Fresher (Any Domain)","Internship Seeker","Campus Placement","Graduate Trainee",
+    "Management Trainee","Apprentice","Research Intern","Summer Intern"
+  ]
+};
+
+// ── Industries ──
+window.ALL_INDUSTRIES = [
+  "IT / Software","Fintech / Banking","E-commerce / Retail","Edtech","Healthtech / Pharma",
+  "Manufacturing","Automobile","Aerospace & Defence","FMCG / Consumer Goods",
+  "Telecom","Media & Entertainment","Real Estate / Construction","Logistics / Supply Chain",
+  "Consulting / Professional Services","Government / PSU","Education / Academia",
+  "Hospitality / Tourism","Agriculture / Agritech","Energy / Oil & Gas","Startup / Early Stage",
+  "MNC / Fortune 500","NGO / Non-profit","Legal / Compliance","Other"
+];
+
+// ── Skills by category ──
+window.SKILLS_BY_CATEGORY = {
+  "Programming Languages": ["Java","Python","JavaScript","TypeScript","C","C++","C#","Go","Rust","Kotlin","Swift","PHP","Ruby","Scala","R","MATLAB","Dart","Perl","Shell/Bash","SQL","PL/SQL"],
+  "Web Frontend": ["React","Next.js","Vue.js","Angular","HTML5","CSS3","Tailwind CSS","Bootstrap","SASS/SCSS","Redux","jQuery","Webpack","Vite","Figma"],
+  "Web Backend": ["Node.js","Spring Boot","Django","FastAPI","Flask","Express.js","Laravel","Ruby on Rails","ASP.NET","GraphQL","REST APIs","gRPC","Microservices","Kafka","RabbitMQ"],
+  "Mobile": ["Android (Java/Kotlin)","iOS (Swift)","React Native","Flutter","Xamarin"],
+  "Databases": ["MySQL","PostgreSQL","MongoDB","Redis","Firebase","SQLite","Oracle DB","MS SQL Server","Cassandra","Elasticsearch","DynamoDB","Neo4j","Supabase"],
+  "Cloud & DevOps": ["AWS","GCP","Azure","Docker","Kubernetes","Terraform","Ansible","Jenkins","GitHub Actions","GitLab CI","Linux","Nginx","Apache","Prometheus","Grafana"],
+  "Data & AI": ["TensorFlow","PyTorch","Scikit-learn","Pandas","NumPy","Matplotlib","Seaborn","OpenCV","Hugging Face","LangChain","Apache Spark","Hadoop","Power BI","Tableau","Excel","SPSS"],
+  "Design Tools": ["Figma","Adobe XD","Sketch","Photoshop","Illustrator","InDesign","Canva","After Effects","Premiere Pro","Blender"],
+  "Marketing Tools": ["Google Analytics","Google Ads","Meta Ads","HubSpot","Mailchimp","SEMrush","Ahrefs","Hootsuite","Salesforce","Zoho CRM","WordPress","Shopify"],
+  "Finance Tools": ["Tally","SAP","QuickBooks","Zoho Books","MS Excel (Advanced)","Bloomberg Terminal","SPSS","SAS","Power BI","Tableau"],
+  "Office & Productivity": ["MS Office","Google Workspace","Slack","Jira","Confluence","Notion","Trello","Asana","Zoom","MS Teams"],
+  "Soft Skills": ["Leadership","Communication","Problem Solving","Teamwork","Time Management","Critical Thinking","Adaptability","Presentation Skills","Negotiation","Client Management"]
+};
+
+// ── Certifications ──
+window.ALL_CERTS = [
+  "AWS Cloud Practitioner","AWS Solutions Architect Associate","AWS Solutions Architect Professional",
+  "AWS Developer Associate","Google Cloud Associate","Google Cloud Professional",
+  "Azure Fundamentals (AZ-900)","Azure Administrator (AZ-104)","Azure Developer (AZ-204)",
+  "Google Data Analytics","Google Digital Marketing","Meta Frontend Developer",
+  "Meta Marketing Professional","HubSpot Content Marketing","HubSpot Inbound Marketing",
+  "Oracle Java SE","Oracle Database","Cisco CCNA","Cisco CCNP","CompTIA Security+",
+  "CompTIA Network+","CEH (Certified Ethical Hacker)","CISSP","PMP","Prince2",
+  "Scrum Master (CSM)","SAFe Agile","Six Sigma Green Belt","Six Sigma Black Belt",
+  "TensorFlow Developer","Databricks Associate","Snowflake SnowPro",
+  "Salesforce Administrator","Salesforce Developer","SAP FICO","SAP SD","SAP MM",
+  "Tally ERP","CA Foundation","CA Intermediate","CFA Level 1","CFA Level 2","FRM",
+  "IELTS","TOEFL","GRE","GMAT","UPSC Prelims Cleared","GATE Qualified"
+];
+</script>

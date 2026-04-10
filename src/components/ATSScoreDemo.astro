@@ -1,0 +1,65 @@
+---
+---
+<section class="py-20 px-4 sm:px-6 bg-white">
+  <div class="max-w-4xl mx-auto">
+    <div class="text-center mb-12">
+      <p class="text-sm font-semibold text-brand-600 uppercase tracking-widest mb-2">ATS Score</p>
+      <h2 class="text-3xl sm:text-4xl font-bold text-gray-900">Watch your score climb</h2>
+    </div>
+
+    <div class="card max-w-2xl mx-auto shadow-md">
+      <div class="flex items-center justify-between mb-6">
+        <span class="text-sm font-medium text-gray-500">Resume ATS Score</span>
+        <span class="text-xs text-gray-400">Out of 100</span>
+      </div>
+
+      <!-- Before score -->
+      <div class="mb-5">
+        <div class="flex justify-between text-sm mb-2">
+          <span class="text-gray-500 font-medium">Before</span>
+          <span class="font-bold text-red-500">45 / 100</span>
+        </div>
+        <div class="h-3 bg-gray-100 rounded-full overflow-hidden">
+          <div class="h-full bg-gradient-to-r from-red-400 to-orange-400 rounded-full" style="width: 45%"></div>
+        </div>
+      </div>
+
+      <!-- After score -->
+      <div class="mb-8">
+        <div class="flex justify-between text-sm mb-2">
+          <span class="text-gray-500 font-medium">After ResumeRocket AI</span>
+          <span class="font-bold text-accent-600">82 / 100</span>
+        </div>
+        <div class="h-3 bg-gray-100 rounded-full overflow-hidden">
+          <div class="h-full bg-gradient-to-r from-brand-500 to-accent-500 rounded-full ats-bar" style="width: 82%"></div>
+        </div>
+      </div>
+
+      <!-- Improvement chips -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        {[
+          { label: "Keywords", val: "+18" },
+          { label: "Formatting", val: "✓ Fixed" },
+          { label: "Action Verbs", val: "+12" },
+          { label: "Metrics", val: "+5" },
+        ].map(item => (
+          <div class="bg-gray-50 rounded-xl p-3 text-center">
+            <div class="text-lg font-bold text-brand-600">{item.val}</div>
+            <div class="text-xs text-gray-400 mt-0.5">{item.label}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .ats-bar {
+    animation: growBar 1.5s ease-out forwards;
+    transform-origin: left;
+  }
+  @keyframes growBar {
+    from { width: 0% }
+    to { width: 82% }
+  }
+</style>

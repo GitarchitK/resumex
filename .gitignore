@@ -1,0 +1,9 @@
+# env — never commit secrets
+.env
+.env.local
+.env.production
+
+# Astro
+dist/
+.astro/
+node_modules/
