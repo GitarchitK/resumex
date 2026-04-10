@@ -10,3 +10,4 @@ node_modules/
 
 # Vercel build output
 .vercel/
+.vercel

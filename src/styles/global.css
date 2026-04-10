@@ -175,3 +175,10 @@ html { scroll-behavior: smooth; scroll-padding-top: 4.5rem; }
 
 /* Prevent text overflow in resume */
 .resume-render * { word-break: break-word; }
+
+/* Language chips — separate from skill chips */
+.lang-chip {
+  @apply text-xs font-medium px-3 py-1.5 rounded-full border border-gray-200 bg-white text-gray-600 cursor-pointer transition-all duration-150;
+}
+.lang-chip:hover { @apply border-blue-400 text-blue-600 bg-blue-50; }
+.lang-chip.active { @apply bg-blue-600 text-white border-blue-600; }

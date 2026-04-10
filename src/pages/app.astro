@@ -209,92 +209,257 @@ import FormData from '../components/FormData.astro';
 
         <!-- STEP 2: Work Experience -->
         <div id="new-step-2" class="hidden card shadow-md space-y-4">
-          <div class="flex items-center gap-2 mb-1">
+          <div class="flex items-center gap-2 mb-2">
             <div class="w-7 h-7 bg-purple-100 rounded-lg flex items-center justify-center">
               <svg class="w-4 h-4 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
             </div>
-            <h2 class="font-bold text-gray-900">Work Experience</h2>
-            <span class="ml-auto text-xs text-gray-400">Fresher? Skip this step.</span>
+            <h2 class="font-bold text-gray-900">Experience</h2>
           </div>
-          <div id="exp-entries" class="space-y-4">
-            <div class="exp-entry bg-gray-50 rounded-xl p-4 space-y-3 border border-gray-100">
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div>
-                  <label class="block text-xs font-semibold text-gray-600 mb-1.5">Job Title</label>
-                  <input list="roles-list" placeholder="Type or select job title..." class="form-input bg-white" autocomplete="off" />
+
+          <!-- Experience type toggle -->
+          <div class="flex bg-gray-100 rounded-xl p-1 gap-1">
+            <button type="button" id="exp-type-experienced"
+              class="flex-1 py-2.5 text-xs font-semibold rounded-lg bg-white shadow-sm text-gray-800 transition-all flex items-center justify-center gap-1.5">
+              💼 I have work experience
+            </button>
+            <button type="button" id="exp-type-fresher"
+              class="flex-1 py-2.5 text-xs font-semibold rounded-lg text-gray-500 transition-all flex items-center justify-center gap-1.5">
+              🎓 I'm a fresher / student
+            </button>
+          </div>
+
+          <!-- ── EXPERIENCED: job entries ── -->
+          <div id="exp-experienced-section">
+            <div id="exp-entries" class="space-y-4">
+              <div class="exp-entry bg-gray-50 rounded-xl p-4 space-y-3 border border-gray-100">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <label class="block text-xs font-semibold text-gray-600 mb-1.5">Job Title</label>
+                    <input list="roles-list" placeholder="Type or select job title..." class="form-input bg-white" autocomplete="off" />
+                  </div>
+                  <div>
+                    <label class="block text-xs font-semibold text-gray-600 mb-1.5">Employment Type</label>
+                    <select class="form-select bg-white">
+                      <option value="">Select type</option>
+                      <option>Full-time</option>
+                      <option>Internship</option>
+                      <option>Part-time</option>
+                      <option>Contract</option>
+                      <option>Freelance</option>
+                      <option>Apprenticeship</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label class="block text-xs font-semibold text-gray-600 mb-1.5">Company Name</label>
+                    <input type="text" placeholder="e.g. Infosys, Razorpay, Your Startup..." class="form-input bg-white" />
+                  </div>
+                  <div>
+                    <label class="block text-xs font-semibold text-gray-600 mb-1.5">Company Location</label>
+                    <input list="cities-list" placeholder="Start typing city..." class="form-input bg-white" autocomplete="off" />
+                  </div>
+                  <div>
+                    <label class="block text-xs font-semibold text-gray-600 mb-1.5">Start Date</label>
+                    <input type="month" class="form-input bg-white" />
+                  </div>
+                  <div>
+                    <label class="block text-xs font-semibold text-gray-600 mb-1.5">End Date</label>
+                    <input type="month" class="form-input bg-white exp-end-date" />
+                    <label class="flex items-center gap-2 text-xs text-gray-500 cursor-pointer mt-1.5">
+                      <input type="checkbox" class="rounded currently-working" /> Currently working here
+                    </label>
+                  </div>
                 </div>
                 <div>
-                  <label class="block text-xs font-semibold text-gray-600 mb-1.5">Employment Type</label>
-                  <select class="form-select bg-white">
-                    <option value="">Select type</option>
-                    <option>Full-time</option>
-                    <option>Internship</option>
-                    <option>Part-time</option>
-                    <option>Contract</option>
-                    <option>Freelance</option>
-                    <option>Apprenticeship</option>
-                  </select>
+                  <label class="block text-xs font-semibold text-gray-600 mb-1.5">Key Responsibilities <span class="text-gray-400 font-normal">(select all that apply)</span></label>
+                  <div class="flex flex-wrap gap-2 resp-chips-container">
+                    <button type="button" class="resp-chip">Built APIs / Backend</button>
+                    <button type="button" class="resp-chip">Developed UI / Frontend</button>
+                    <button type="button" class="resp-chip">Database Design</button>
+                    <button type="button" class="resp-chip">Code Reviews</button>
+                    <button type="button" class="resp-chip">System Design</button>
+                    <button type="button" class="resp-chip">Bug Fixing</button>
+                    <button type="button" class="resp-chip">Testing / QA</button>
+                    <button type="button" class="resp-chip">CI/CD / DevOps</button>
+                    <button type="button" class="resp-chip">Mentored Juniors</button>
+                    <button type="button" class="resp-chip">Led a Team</button>
+                    <button type="button" class="resp-chip">Client Communication</button>
+                    <button type="button" class="resp-chip">Agile / Scrum</button>
+                    <button type="button" class="resp-chip">Sales / BD</button>
+                    <button type="button" class="resp-chip">Data Analysis</button>
+                    <button type="button" class="resp-chip">Report Writing</button>
+                    <button type="button" class="resp-chip">Training / L&D</button>
+                    <button type="button" class="resp-chip">Recruitment</button>
+                    <button type="button" class="resp-chip">Finance / Accounts</button>
+                    <button type="button" class="resp-chip">Operations</button>
+                    <button type="button" class="resp-chip">Marketing / SEO</button>
+                    <button type="button" class="resp-chip">Content Writing</button>
+                    <button type="button" class="resp-chip">Design / Creative</button>
+                    <button type="button" class="resp-chip">Research</button>
+                    <button type="button" class="resp-chip">Supply Chain</button>
+                  </div>
                 </div>
                 <div>
-                  <label class="block text-xs font-semibold text-gray-600 mb-1.5">Company Name</label>
-                  <input type="text" placeholder="e.g. Infosys, Razorpay, Your Startup..." class="form-input bg-white" />
+                  <label class="block text-xs font-semibold text-gray-600 mb-1.5">Achievements / Impact <span class="text-gray-400 font-normal">(AI will add metrics)</span></label>
+                  <textarea rows="2" placeholder="e.g. Increased sales by 30%, managed team of 5, reduced costs by ₹2L/month..."
+                    class="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent resize-none transition-all bg-white"></textarea>
                 </div>
-                <div>
-                  <label class="block text-xs font-semibold text-gray-600 mb-1.5">Company Location</label>
-                  <input list="cities-list" placeholder="Start typing city..." class="form-input bg-white" autocomplete="off" />
-                </div>
-                <div>
-                  <label class="block text-xs font-semibold text-gray-600 mb-1.5">Start Date</label>
-                  <input type="month" class="form-input bg-white" />
-                </div>
-                <div>
-                  <label class="block text-xs font-semibold text-gray-600 mb-1.5">End Date</label>
-                  <input type="month" class="form-input bg-white exp-end-date" />
-                  <label class="flex items-center gap-2 text-xs text-gray-500 cursor-pointer mt-1.5">
-                    <input type="checkbox" class="rounded currently-working" /> Currently working here
-                  </label>
-                </div>
-              </div>
-              <div>
-                <label class="block text-xs font-semibold text-gray-600 mb-1.5">Key Responsibilities <span class="text-gray-400 font-normal">(select all that apply)</span></label>
-                <div class="flex flex-wrap gap-2 resp-chips-container">
-                  <button type="button" class="resp-chip">Built APIs / Backend</button>
-                  <button type="button" class="resp-chip">Developed UI / Frontend</button>
-                  <button type="button" class="resp-chip">Database Design</button>
-                  <button type="button" class="resp-chip">Code Reviews</button>
-                  <button type="button" class="resp-chip">System Design</button>
-                  <button type="button" class="resp-chip">Bug Fixing</button>
-                  <button type="button" class="resp-chip">Testing / QA</button>
-                  <button type="button" class="resp-chip">CI/CD / DevOps</button>
-                  <button type="button" class="resp-chip">Mentored Juniors</button>
-                  <button type="button" class="resp-chip">Led a Team</button>
-                  <button type="button" class="resp-chip">Client Communication</button>
-                  <button type="button" class="resp-chip">Agile / Scrum</button>
-                  <button type="button" class="resp-chip">Sales / BD</button>
-                  <button type="button" class="resp-chip">Data Analysis</button>
-                  <button type="button" class="resp-chip">Report Writing</button>
-                  <button type="button" class="resp-chip">Training / L&D</button>
-                  <button type="button" class="resp-chip">Recruitment</button>
-                  <button type="button" class="resp-chip">Finance / Accounts</button>
-                  <button type="button" class="resp-chip">Operations</button>
-                  <button type="button" class="resp-chip">Marketing / SEO</button>
-                  <button type="button" class="resp-chip">Content Writing</button>
-                  <button type="button" class="resp-chip">Design / Creative</button>
-                  <button type="button" class="resp-chip">Research</button>
-                  <button type="button" class="resp-chip">Supply Chain</button>
-                </div>
-              </div>
-              <div>
-                <label class="block text-xs font-semibold text-gray-600 mb-1.5">Achievements / Impact <span class="text-gray-400 font-normal">(AI will add metrics)</span></label>
-                <textarea rows="2" placeholder="e.g. Increased sales by 30%, managed team of 5, reduced costs by ₹2L/month..."
-                  class="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent resize-none transition-all bg-white"></textarea>
               </div>
             </div>
+            <button id="add-exp" type="button" class="w-full border-2 border-dashed border-gray-200 rounded-xl py-3 text-sm text-gray-400 hover:border-brand-400 hover:text-brand-600 transition-all flex items-center justify-center gap-2 mt-3">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+              Add Another Job
+            </button>
           </div>
-          <button id="add-exp" type="button" class="w-full border-2 border-dashed border-gray-200 rounded-xl py-3 text-sm text-gray-400 hover:border-brand-400 hover:text-brand-600 transition-all flex items-center justify-center gap-2">
-            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
-            Add Another Job
-          </button>
+
+          <!-- ── FRESHER: projects + internships + activities ── -->
+          <div id="exp-fresher-section" class="hidden space-y-5">
+
+            <!-- Info banner -->
+            <div class="bg-blue-50 border border-blue-100 rounded-xl p-4 flex gap-3">
+              <span class="text-2xl">🎓</span>
+              <div>
+                <div class="text-sm font-semibold text-blue-800 mb-0.5">No work experience? No problem.</div>
+                <p class="text-xs text-blue-600 leading-relaxed">AI will build a strong resume using your projects, internships, and activities. Freshers get hired every day — the key is presenting what you have well.</p>
+              </div>
+            </div>
+
+            <!-- Internship (optional) -->
+            <div>
+              <div class="flex items-center gap-2 mb-3">
+                <div class="w-5 h-5 bg-purple-100 rounded flex items-center justify-center text-purple-600 text-xs">📋</div>
+                <span class="text-sm font-semibold text-gray-800">Internship / Training</span>
+                <span class="text-xs text-gray-400 ml-1">— optional</span>
+              </div>
+              <div class="bg-gray-50 rounded-xl p-4 space-y-3 border border-gray-100">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <label class="block text-xs font-semibold text-gray-600 mb-1.5">Role / Position</label>
+                    <input type="text" id="fresher-intern-role" placeholder="e.g. Web Dev Intern, Marketing Intern..." class="form-input bg-white" />
+                  </div>
+                  <div>
+                    <label class="block text-xs font-semibold text-gray-600 mb-1.5">Company / Organisation</label>
+                    <input type="text" id="fresher-intern-company" placeholder="e.g. TCS, Local NGO, College Lab..." class="form-input bg-white" />
+                  </div>
+                  <div>
+                    <label class="block text-xs font-semibold text-gray-600 mb-1.5">Duration</label>
+                    <select id="fresher-intern-duration" class="form-select bg-white">
+                      <option value="">Select duration</option>
+                      <option>1 month</option>
+                      <option>2 months</option>
+                      <option>3 months</option>
+                      <option>6 months</option>
+                      <option>1 year</option>
+                      <option>Other</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label class="block text-xs font-semibold text-gray-600 mb-1.5">Type</label>
+                    <select id="fresher-intern-type" class="form-select bg-white">
+                      <option value="">Select type</option>
+                      <option>Paid Internship</option>
+                      <option>Unpaid Internship</option>
+                      <option>Industrial Training</option>
+                      <option>Vocational Training</option>
+                      <option>Summer Project</option>
+                      <option>Research Internship</option>
+                      <option>Virtual / Online Internship</option>
+                    </select>
+                  </div>
+                </div>
+                <div>
+                  <label class="block text-xs font-semibold text-gray-600 mb-1.5">What did you do? <span class="text-gray-400 font-normal">(AI will rewrite this professionally)</span></label>
+                  <textarea id="fresher-intern-desc" rows="2" placeholder="e.g. Built a login page using HTML/CSS, helped with data entry, assisted in social media posts..."
+                    class="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent resize-none transition-all bg-white"></textarea>
+                </div>
+              </div>
+            </div>
+
+            <!-- Academic Projects -->
+            <div>
+              <div class="flex items-center gap-2 mb-3">
+                <div class="w-5 h-5 bg-brand-100 rounded flex items-center justify-center text-brand-600 text-xs">💡</div>
+                <span class="text-sm font-semibold text-gray-800">Academic / Personal Projects</span>
+                <span class="text-xs text-accent-600 font-medium ml-1">— very important for freshers</span>
+              </div>
+              <div id="fresher-projects" class="space-y-3">
+                <div class="fresher-project bg-gray-50 rounded-xl p-4 space-y-3 border border-gray-100">
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                      <label class="block text-xs font-semibold text-gray-600 mb-1.5">Project Name</label>
+                      <input type="text" placeholder="e.g. E-commerce Website, Hospital Management System..." class="form-input bg-white" />
+                    </div>
+                    <div>
+                      <label class="block text-xs font-semibold text-gray-600 mb-1.5">Project Type</label>
+                      <select class="form-select bg-white">
+                        <option value="">Select type</option>
+                        <option>Final Year Project</option>
+                        <option>Mini Project</option>
+                        <option>Personal / Side Project</option>
+                        <option>Hackathon Project</option>
+                        <option>Open Source Contribution</option>
+                        <option>Research Project</option>
+                        <option>Freelance Project</option>
+                      </select>
+                    </div>
+                    <div class="sm:col-span-2">
+                      <label class="block text-xs font-semibold text-gray-600 mb-1.5">Technologies / Tools Used</label>
+                      <input type="text" placeholder="e.g. React, Node.js, MySQL — or Excel, Tally, Photoshop..." class="form-input bg-white" />
+                    </div>
+                  </div>
+                  <div>
+                    <label class="block text-xs font-semibold text-gray-600 mb-1.5">What does it do? What did you build?</label>
+                    <textarea rows="2" placeholder="e.g. A web app that lets users buy products online with cart and payment. Built the frontend and connected to a MySQL database."
+                      class="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent resize-none transition-all bg-white"></textarea>
+                  </div>
+                  <div>
+                    <label class="block text-xs font-semibold text-gray-600 mb-1.5">Result / Impact <span class="text-gray-400 font-normal">(optional)</span></label>
+                    <input type="text" placeholder="e.g. Got A grade, 200+ GitHub stars, used by 50 classmates, won college competition..." class="form-input bg-white" />
+                  </div>
+                </div>
+              </div>
+              <button id="add-fresher-project" type="button" class="w-full border-2 border-dashed border-gray-200 rounded-xl py-3 text-sm text-gray-400 hover:border-brand-400 hover:text-brand-600 transition-all flex items-center justify-center gap-2 mt-2">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+                Add Another Project
+              </button>
+            </div>
+
+            <!-- Extra-curricular / Achievements -->
+            <div>
+              <div class="flex items-center gap-2 mb-3">
+                <div class="w-5 h-5 bg-yellow-100 rounded flex items-center justify-center text-yellow-600 text-xs">🏆</div>
+                <span class="text-sm font-semibold text-gray-800">Achievements & Activities</span>
+                <span class="text-xs text-gray-400 ml-1">— optional but adds value</span>
+              </div>
+              <div class="bg-gray-50 rounded-xl p-4 space-y-3 border border-gray-100">
+                <div>
+                  <label class="block text-xs font-semibold text-gray-600 mb-2">Select all that apply</label>
+                  <div class="flex flex-wrap gap-2">
+                    <button type="button" class="resp-chip">Hackathon Participant</button>
+                    <button type="button" class="resp-chip">Hackathon Winner</button>
+                    <button type="button" class="resp-chip">College Fest Organizer</button>
+                    <button type="button" class="resp-chip">NSS / NCC Volunteer</button>
+                    <button type="button" class="resp-chip">Sports Captain</button>
+                    <button type="button" class="resp-chip">Class Representative</button>
+                    <button type="button" class="resp-chip">Technical Club Member</button>
+                    <button type="button" class="resp-chip">Cultural Club Member</button>
+                    <button type="button" class="resp-chip">Paper Presentation</button>
+                    <button type="button" class="resp-chip">Quiz Competition Winner</button>
+                    <button type="button" class="resp-chip">Debate / Elocution</button>
+                    <button type="button" class="resp-chip">Freelance Work</button>
+                    <button type="button" class="resp-chip">YouTube / Blog</button>
+                    <button type="button" class="resp-chip">Open Source Contributor</button>
+                  </div>
+                </div>
+                <div>
+                  <label class="block text-xs font-semibold text-gray-600 mb-1.5">Anything else to mention?</label>
+                  <textarea id="fresher-extras" rows="2" placeholder="e.g. Ranked 3rd in state-level coding contest, published article in college magazine, volunteered at 2 NGOs..."
+                    class="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent resize-none transition-all bg-white"></textarea>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
           <div class="flex gap-3">
             <button class="btn-secondary flex-1 py-3 prev-step" data-prev="1">← Back</button>
             <button class="btn-primary flex-1 py-3 next-step" data-next="3">Continue to Education →</button>
@@ -479,26 +644,26 @@ import FormData from '../components/FormData.astro';
             <input id="n-certs" list="certs-list" placeholder="e.g. AWS Cloud Practitioner, PMP, CA Final..." class="form-input" autocomplete="off" />
           </div>
 
-          <!-- Languages spoken -->
+          <!-- Languages spoken — separate class to avoid mixing with tech skills -->
           <div>
             <label class="block text-xs font-semibold text-gray-600 mb-2">Languages Spoken</label>
             <div class="flex flex-wrap gap-2">
-              <button type="button" class="skill-chip">English</button>
-              <button type="button" class="skill-chip">Hindi</button>
-              <button type="button" class="skill-chip">Tamil</button>
-              <button type="button" class="skill-chip">Telugu</button>
-              <button type="button" class="skill-chip">Kannada</button>
-              <button type="button" class="skill-chip">Malayalam</button>
-              <button type="button" class="skill-chip">Marathi</button>
-              <button type="button" class="skill-chip">Bengali</button>
-              <button type="button" class="skill-chip">Gujarati</button>
-              <button type="button" class="skill-chip">Punjabi</button>
-              <button type="button" class="skill-chip">Odia</button>
-              <button type="button" class="skill-chip">Urdu</button>
-              <button type="button" class="skill-chip">Assamese</button>
-              <button type="button" class="skill-chip">French</button>
-              <button type="button" class="skill-chip">German</button>
-              <button type="button" class="skill-chip">Japanese</button>
+              <button type="button" class="lang-chip">English</button>
+              <button type="button" class="lang-chip">Hindi</button>
+              <button type="button" class="lang-chip">Tamil</button>
+              <button type="button" class="lang-chip">Telugu</button>
+              <button type="button" class="lang-chip">Kannada</button>
+              <button type="button" class="lang-chip">Malayalam</button>
+              <button type="button" class="lang-chip">Marathi</button>
+              <button type="button" class="lang-chip">Bengali</button>
+              <button type="button" class="lang-chip">Gujarati</button>
+              <button type="button" class="lang-chip">Punjabi</button>
+              <button type="button" class="lang-chip">Odia</button>
+              <button type="button" class="lang-chip">Urdu</button>
+              <button type="button" class="lang-chip">Assamese</button>
+              <button type="button" class="lang-chip">French</button>
+              <button type="button" class="lang-chip">German</button>
+              <button type="button" class="lang-chip">Japanese</button>
             </div>
           </div>
 
@@ -827,6 +992,9 @@ import FormData from '../components/FormData.astro';
   document.querySelectorAll('.skill-chip').forEach(chip => {
     chip.addEventListener('click', () => chip.classList.toggle('active'));
   });
+  document.querySelectorAll('.lang-chip').forEach(chip => {
+    chip.addEventListener('click', () => chip.classList.toggle('active'));
+  });
 
   // ── Currently working checkbox ──
   document.addEventListener('change', (e) => {
@@ -835,6 +1003,45 @@ import FormData from '../components/FormData.astro';
       const endDate = cb.closest('.space-y-3')?.querySelector('.exp-end-date') as HTMLInputElement;
       if (endDate) { endDate.disabled = cb.checked; if (cb.checked) endDate.value = ''; }
     }
+  });
+
+  // ── Experience type toggle (experienced vs fresher) ──
+  const expTypeBtns = {
+    experienced: document.getElementById('exp-type-experienced')!,
+    fresher: document.getElementById('exp-type-fresher')!,
+  };
+  const expSections = {
+    experienced: document.getElementById('exp-experienced-section')!,
+    fresher: document.getElementById('exp-fresher-section')!,
+  };
+  const activeCls = 'flex-1 py-2.5 text-xs font-semibold rounded-lg bg-white shadow-sm text-gray-800 transition-all flex items-center justify-center gap-1.5';
+  const inactiveCls = 'flex-1 py-2.5 text-xs font-semibold rounded-lg text-gray-500 transition-all flex items-center justify-center gap-1.5';
+
+  expTypeBtns.experienced?.addEventListener('click', () => {
+    expTypeBtns.experienced.className = activeCls;
+    expTypeBtns.fresher.className = inactiveCls;
+    expSections.experienced.classList.remove('hidden');
+    expSections.fresher.classList.add('hidden');
+  });
+  expTypeBtns.fresher?.addEventListener('click', () => {
+    expTypeBtns.fresher.className = activeCls;
+    expTypeBtns.experienced.className = inactiveCls;
+    expSections.fresher.classList.remove('hidden');
+    expSections.experienced.classList.add('hidden');
+  });
+
+  // ── Add fresher project entry ──
+  document.getElementById('add-fresher-project')?.addEventListener('click', () => {
+    const container = document.getElementById('fresher-projects')!;
+    const entry = container.querySelector('.fresher-project')!.cloneNode(true) as HTMLElement;
+    entry.querySelectorAll('input, textarea, select').forEach((el: any) => el.value = '');
+    const removeBtn = document.createElement('button');
+    removeBtn.type = 'button';
+    removeBtn.className = 'text-xs text-red-400 hover:text-red-600 mt-1 transition-colors';
+    removeBtn.textContent = '✕ Remove this project';
+    removeBtn.addEventListener('click', () => entry.remove());
+    entry.appendChild(removeBtn);
+    container.appendChild(entry);
   });
 
   // ── Add more experience entries ──
@@ -890,7 +1097,56 @@ import FormData from '../components/FormData.astro';
       };
     }
 
-    // Collect experience entries
+    // Detect if fresher mode is active
+    const isFresher = !document.getElementById('exp-fresher-section')?.classList.contains('hidden');
+
+    if (isFresher) {
+      // Collect fresher data
+      const fresherProjects: any[] = [];
+      document.querySelectorAll('.fresher-project').forEach(entry => {
+        const inputs = entry.querySelectorAll('input');
+        const selects = entry.querySelectorAll('select');
+        const textarea = entry.querySelector('textarea') as HTMLTextAreaElement;
+        const name = (inputs[0] as HTMLInputElement)?.value || '';
+        const type = (selects[0] as HTMLSelectElement)?.value || '';
+        const tech = (inputs[1] as HTMLInputElement)?.value || '';
+        const desc = textarea?.value || '';
+        const result = (inputs[2] as HTMLInputElement)?.value || '';
+        if (name || desc) fresherProjects.push({ name, type, tech, desc, result });
+      });
+
+      const activities = Array.from(document.querySelectorAll('#exp-fresher-section .resp-chip.active')).map(c => c.textContent?.trim() || '');
+
+      return {
+        mode: 'new',
+        isFresher: true,
+        name: (document.getElementById('n-name') as HTMLInputElement)?.value || '',
+        title: (document.getElementById('n-title') as HTMLInputElement)?.value || '',
+        email: (document.getElementById('n-email') as HTMLInputElement)?.value || '',
+        phone: (document.getElementById('n-phone') as HTMLInputElement)?.value || '',
+        location: (document.getElementById('n-location') as HTMLInputElement)?.value || '',
+        level: (document.getElementById('n-exp-level') as HTMLSelectElement)?.value || '',
+        linkedin: (document.getElementById('n-linkedin') as HTMLInputElement)?.value || '',
+        github: (document.getElementById('n-github') as HTMLInputElement)?.value || '',
+        summary: (document.getElementById('n-summary') as HTMLTextAreaElement)?.value || '',
+        internship: {
+          role: (document.getElementById('fresher-intern-role') as HTMLInputElement)?.value || '',
+          company: (document.getElementById('fresher-intern-company') as HTMLInputElement)?.value || '',
+          duration: (document.getElementById('fresher-intern-duration') as HTMLSelectElement)?.value || '',
+          type: (document.getElementById('fresher-intern-type') as HTMLSelectElement)?.value || '',
+          desc: (document.getElementById('fresher-intern-desc') as HTMLTextAreaElement)?.value || '',
+        },
+        fresherProjects,
+        activities,
+        extras: (document.getElementById('fresher-extras') as HTMLTextAreaElement)?.value || '',
+        education: [],
+        skills: [...new Set([...Array.from(document.querySelectorAll('.skill-chip.active')).map(c => c.textContent?.trim() || ''), ...((document.getElementById('n-skills-manual') as HTMLInputElement)?.value || '').split(',').map(s => s.trim()).filter(Boolean)])],
+        languages: Array.from(document.querySelectorAll('.lang-chip.active')).map(c => c.textContent?.trim() || ''),
+        certifications: (document.getElementById('n-certs') as HTMLInputElement)?.value || '',
+        projects: (document.getElementById('n-projects') as HTMLTextAreaElement)?.value || '',
+        jd: (document.getElementById('n-jd') as HTMLTextAreaElement)?.value || '',
+      };
+    }
     const expEntries: any[] = [];
     document.querySelectorAll('.exp-entry').forEach(entry => {
       const inputs = entry.querySelectorAll('input, select, textarea');
@@ -998,7 +1254,129 @@ import FormData from '../components/FormData.astro';
     `;
   }
 
+  function buildFresherResume(d: any): string {
+    const name = d.name || 'Your Name';
+    const title = d.title || 'Fresher';
+    const email = d.email || '';
+    const phone = d.phone || '';
+    const location = d.location || '';
+    const linkedin = d.linkedin || '';
+    const github = d.github || '';
+
+    let html = `<header class="border-b-2 border-gray-900 pb-3 mb-4">
+      <h1 class="text-2xl font-bold tracking-tight text-gray-900 leading-none">${name}</h1>
+      <p class="text-sm text-gray-600 mt-1 font-medium">${title}</p>
+      <div class="flex flex-wrap gap-x-4 gap-y-0.5 mt-2 text-xs text-gray-500">
+        ${email ? `<span>✉ ${email}</span>` : ''}
+        ${phone ? `<span>📞 ${phone}</span>` : ''}
+        ${location ? `<span>📍 ${location}</span>` : ''}
+        ${linkedin ? `<span class="text-blue-700">🔗 ${linkedin.replace(/^https?:\/\//, '')}</span>` : ''}
+        ${github ? `<span class="text-blue-700">⌥ ${github.replace(/^https?:\/\//, '')}</span>` : ''}
+      </div>
+    </header>`;
+
+    // Summary — auto-generate for freshers
+    const skillsPreview = d.skills?.slice(0, 4).join(', ') || 'relevant technologies';
+    html += `<section class="mb-4">
+      <h2 class="rr-section-title">Objective</h2>
+      <p class="text-xs text-gray-700 leading-relaxed">
+        ${d.summary || `Motivated ${title} graduate with strong foundation in ${skillsPreview}. Eager to apply academic knowledge and project experience in a professional environment. Quick learner with a passion for continuous growth and delivering quality work.`}
+      </p>
+    </section>`;
+
+    // Internship
+    const intern = d.internship;
+    if (intern?.role || intern?.company) {
+      html += `<section class="mb-4">
+        <h2 class="rr-section-title">Internship / Training</h2>
+        <div class="flex items-start justify-between gap-2">
+          <div>
+            <div class="text-sm font-bold text-gray-900">${intern.role || 'Intern'}</div>
+            <div class="text-xs font-semibold text-gray-600">${intern.company}${intern.type ? ' · ' + intern.type : ''}</div>
+          </div>
+          ${intern.duration ? `<div class="text-xs text-gray-500 whitespace-nowrap">${intern.duration}</div>` : ''}
+        </div>
+        ${intern.desc ? `<ul class="mt-1.5 text-xs text-gray-700 leading-relaxed space-y-1">
+          ${intern.desc.split('\n').filter((l: string) => l.trim()).map((l: string) =>
+            `<li class="flex gap-2"><span class="flex-shrink-0">•</span><span>${l.trim().replace(/^[-•]\s*/,'')}</span></li>`
+          ).join('')}
+        </ul>` : ''}
+      </section>`;
+    }
+
+    // Projects
+    if (d.fresherProjects?.length > 0) {
+      html += `<section class="mb-4"><h2 class="rr-section-title">Projects</h2><div class="space-y-3">`;
+      d.fresherProjects.forEach((p: any) => {
+        if (!p.name && !p.desc) return;
+        html += `<div>
+          <div class="flex items-start justify-between gap-2">
+            <span class="text-xs font-bold text-gray-900">${p.name || 'Project'}${p.type ? ` <span class="font-normal text-gray-400">· ${p.type}</span>` : ''}</span>
+          </div>
+          ${p.tech ? `<p class="text-xs text-gray-400 mt-0.5">${p.tech}</p>` : ''}
+          ${p.desc ? `<p class="text-xs text-gray-700 mt-0.5 leading-relaxed">${p.desc}</p>` : ''}
+          ${p.result ? `<p class="text-xs text-accent-600 mt-0.5 font-medium">✓ ${p.result}</p>` : ''}
+        </div>`;
+      });
+      html += `</div></section>`;
+    }
+
+    // Education (will be filled from step 3 data — placeholder here)
+    if (d.education?.length > 0) {
+      html += `<section class="mb-4"><h2 class="rr-section-title">Education</h2><div class="space-y-3">`;
+      d.education.forEach((edu: any) => {
+        html += `<div class="flex items-start justify-between gap-2">
+          <div>
+            <div class="text-sm font-bold text-gray-900">${edu.degree}${edu.branch ? ', ' + edu.branch : ''}</div>
+            <div class="text-xs text-gray-600">${edu.college}</div>
+            ${edu.cgpa ? `<div class="text-xs text-gray-500 mt-0.5">${edu.cgpa}</div>` : ''}
+          </div>
+          ${edu.year ? `<div class="text-xs text-gray-500 whitespace-nowrap">${edu.year}</div>` : ''}
+        </div>`;
+      });
+      html += `</div></section>`;
+    }
+
+    // Skills
+    if (d.skills?.length > 0) {
+      html += `<section class="mb-4"><h2 class="rr-section-title">Technical Skills</h2>
+        <p class="text-xs text-gray-700 leading-relaxed">${d.skills.join(' · ')}</p>
+      </section>`;
+    }
+
+    // Activities & Achievements
+    const allActivities = [...(d.activities || [])];
+    if (d.extras) allActivities.push(d.extras);
+    if (allActivities.length > 0) {
+      html += `<section class="mb-4"><h2 class="rr-section-title">Achievements & Activities</h2>
+        <ul class="space-y-1 text-xs text-gray-700">
+          ${allActivities.map(a => `<li class="flex gap-2"><span class="flex-shrink-0">•</span><span>${a}</span></li>`).join('')}
+        </ul>
+      </section>`;
+    }
+
+    // Certifications
+    if (d.certifications) {
+      html += `<section class="mb-4"><h2 class="rr-section-title">Certifications</h2>
+        <p class="text-xs text-gray-700">${d.certifications}</p>
+      </section>`;
+    }
+
+    // Languages
+    if (d.languages?.length > 0) {
+      html += `<section class="mb-2"><h2 class="rr-section-title">Languages</h2>
+        <p class="text-xs text-gray-700">${d.languages.join(' · ')}</p>
+      </section>`;
+    }
+
+    html += `<div class="mt-4 pt-3 border-t border-gray-100 text-xs text-gray-400 text-center">AI-optimized for ATS · ResumeRocket AI</div>`;
+    return html;
+  }
+
   function buildNewModeResume(d: any): string {
+    // Route to fresher builder if applicable
+    if (d.isFresher) return buildFresherResume(d);
+
     const name = d.name || 'Your Name';
     const title = d.title || '';
     const email = d.email || '';
